@@ -8,14 +8,19 @@ const Formulario = () => {
   const [fechaAlta, setFechaAlta] = useState('');
   const [sintomas, setSintomas] = useState('');
 
+  const [error, setError] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if ([nombre, propietario, email, fechaAlta, sintomas].includes('')) {
       console.log('Hay al menos un campo vacio')
-    } else {
-      console.log('Todos llenos')
+
+      setError(true)
+      return;
     }
+
+    setError(false)
     console.log('enviando...')
   };
 
@@ -30,7 +35,15 @@ const Formulario = () => {
 
       <form
         onSubmit={handleSubmit}
-        className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'>
+        className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'
+      >
+        {error &&
+          <div
+            className='
+          bg-red-800 text-white text-center p-3 uppercase font-bold mb-10 rounded-md'>
+            <p>Todos los campos son obligatirios</p>
+          </div>
+        }
         <div className='mb-5'>
           <label
             htmlFor='nombreMascota'
@@ -111,7 +124,7 @@ const Formulario = () => {
           />
         </div>
 
-        <input 
+        <input
           type="submit"
           className='bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all'
           value="Agregar Paciente"
