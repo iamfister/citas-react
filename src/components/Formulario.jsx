@@ -11,6 +11,11 @@ const Formulario = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if ([nombre, propietario, email, fechaAlta, sintomas].includes('')) {
+      console.log('Hay al menos un campo vacio')
+    } else {
+      console.log('Todos llenos')
+    }
     console.log('enviando...')
   };
 
