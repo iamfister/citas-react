@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { Error } from './Error';
 
-const Formulario = () => {
+// eslint-disable-next-line react/prop-types
+const Formulario = ({pacientes, setPacientes }) => {
 
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -21,7 +23,23 @@ const Formulario = () => {
     }
 
     setError(false)
-    console.log('enviando...')
+
+    const objectoPaciente = {
+      nombre,
+      propietario,
+      email,
+      fechaAlta,
+      sintomas
+    }
+
+    setPacientes([...pacientes, objectoPaciente]);
+
+    // Reiniciar formulario
+    setNombre('')
+    setPropietario('')
+    setEmail('')
+    setFechaAlta('')
+    setSintomas('')
   };
 
   return (
@@ -37,13 +55,7 @@ const Formulario = () => {
         onSubmit={handleSubmit}
         className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'
       >
-        {error &&
-          <div
-            className='
-          bg-red-800 text-white text-center p-3 uppercase font-bold mb-10 rounded-md'>
-            <p>Todos los campos son obligatirios</p>
-          </div>
-        }
+        {error && <Error mensaje='Todos los campos son obligatirios'/>}
         <div className='mb-5'>
           <label
             htmlFor='nombreMascota'
